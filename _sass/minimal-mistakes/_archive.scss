@@ -231,6 +231,166 @@
 }
 
 /*
+   Tile view
+   ========================================================================== */
+
+.entries-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0 2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.tiles__item {
+  height: 100%;
+  list-style: none;
+}
+
+.archive__item--tile {
+  --tile-image: none;
+  position: relative;
+  height: 100%;
+  border-radius: $border-radius * 2;
+  background: linear-gradient(135deg, mix(#fff, $primary-color, 72%), mix(#fff, $info-color, 78%));
+  border: 1px solid rgba($border-color, 0.6);
+  box-shadow: 0 15px 35px rgba(#000, 0.06);
+  overflow: hidden;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+
+  &::before {
+    background: radial-gradient(circle at 20% 20%, rgba($link-color, 0.18), transparent 40%),
+      radial-gradient(circle at 80% 0%, rgba($primary-color, 0.16), transparent 38%);
+    opacity: 0.7;
+  }
+
+  &::after {
+    background: linear-gradient(145deg, rgba(#000, 0.08), rgba(#000, 0.02));
+    opacity: 0.2;
+  }
+
+  &.has-teaser::before {
+    background: linear-gradient(145deg, rgba(#0f172a, 0.45), rgba(#0f172a, 0.15)), var(--tile-image);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.95;
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(#000, 0.1);
+
+    &::after {
+      opacity: 0.35;
+    }
+  }
+
+  .archive__item-body {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    color: inherit;
+    text-decoration: none;
+    background: linear-gradient(180deg, rgba(#fff, 0.75), rgba(#fff, 0.92));
+    backdrop-filter: blur(4px);
+
+    @supports not (backdrop-filter: blur(4px)) {
+      background: rgba(#fff, 0.92);
+    }
+  }
+
+  .archive__item-title {
+    margin: 0;
+    font-size: $type-size-4;
+    line-height: 1.25;
+  }
+
+  .archive__item-eyebrow {
+    margin: 0;
+    color: $muted-text-color;
+    font-size: $type-size-6;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .archive__item-excerpt {
+    margin: 0.25rem 0;
+    color: $text-color;
+    font-size: $type-size-6;
+  }
+
+  .page__meta {
+    margin: 0;
+    font-size: $type-size-8;
+    color: $muted-text-color;
+  }
+}
+
+.archive__item-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.35rem 0 0;
+}
+
+.tile__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2em 0.65em;
+  border-radius: 999px;
+  background: rgba($link-color, 0.12);
+  color: mix(#000, $link-color, 40%);
+  font-size: $type-size-7;
+  font-weight: 600;
+  line-height: 1.2;
+
+  &::before {
+    content: '';
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 6px rgba($link-color, 0.08);
+  }
+}
+
+.tile__cta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 700;
+  color: $link-color;
+  font-size: $type-size-6;
+  text-decoration: none;
+
+  &::after {
+    content: '↗';
+    font-size: 0.95em;
+    transition: transform 160ms ease;
+  }
+}
+
+.archive__item--tile:hover .tile__cta::after {
+  transform: translateX(3px);
+}
+
+/*
    Features
    ========================================================================== */
 
